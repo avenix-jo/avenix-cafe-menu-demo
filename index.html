@@ -1228,7 +1228,113 @@
         </button>
 
       </div>
+<div id="cliqPaymentBox" style="display:none; margin-top:16px;">
 
+  <div style="
+    padding:18px;
+    border-radius:20px;
+    background:linear-gradient(135deg,#fff,#f7eee7);
+    border:1px solid #e2d3c7;
+  ">
+
+    <div style="font-weight:900;font-size:15px;margin-bottom:5px;">
+      📲 الدفع عبر CliQ
+    </div>
+
+    <div style="font-size:10px;color:#806f64;margin-bottom:16px;">
+      حوّل المبلغ للحساب التالي، وتأكد من اسم المستلم قبل تأكيد التحويل.
+    </div>
+
+    <div style="
+      background:#fff;
+      border:1px solid #eadfd6;
+      border-radius:15px;
+      padding:13px;
+      margin-bottom:9px;
+    ">
+      <small style="color:#8b786d;">اسم المستلم</small>
+      <div style="font-weight:900;margin-top:3px;" id="cliqReceiverName">
+        NOIR CAFÉ
+      </div>
+    </div>
+
+    <div style="
+      background:#fff;
+      border:1px solid #eadfd6;
+      border-radius:15px;
+      padding:13px;
+      margin-bottom:9px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    ">
+
+      <div>
+        <small style="color:#8b786d;">CliQ Alias</small>
+        <div style="font-weight:900;margin-top:3px;" id="cliqAliasText">
+          NOIRCAFE
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onclick="copyCliqAlias()"
+        style="
+          border:0;
+          padding:9px 12px;
+          border-radius:11px;
+          background:#241914;
+          color:#fff;
+          font-weight:800;
+        "
+      >
+        نسخ 📋
+      </button>
+
+    </div>
+
+    <div style="
+      background:#241914;
+      color:#fff;
+      border-radius:15px;
+      padding:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    ">
+
+      <div>
+        <small style="opacity:.65;">المبلغ المطلوب</small>
+        <div
+          id="cliqAmount"
+          style="font-size:19px;font-weight:900;margin-top:2px;"
+        >
+          0.00 JOD
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onclick="copyCliqAmount()"
+        style="
+          border:1px solid rgba(255,255,255,.15);
+          padding:9px 12px;
+          border-radius:11px;
+          background:rgba(255,255,255,.08);
+          color:#fff;
+          font-weight:800;
+        "
+      >
+        نسخ المبلغ
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
     </div>
 
     <div class="cart-summary">
@@ -1265,7 +1371,10 @@
        ========================= */
 
     const WHATSAPP_NUMBER = "962777143695";
-
+    
+const CLIQ_RECEIVER_NAME = "NOIR CAFÉ";
+const CLIQ_ALIAS = "NOIRCAFE";
+    
     const restaurant = {
       ar: "NOIR CAFÉ",
       en: "NOIR CAFÉ"
@@ -2331,39 +2440,77 @@
           : "none";
     }
 
-    function selectPayment(payment) {
+function selectPayment(payment) {
 
-      paymentMethod = payment;
+  paymentMethod = payment;
 
-      document
-        .querySelectorAll(".payment-type")
-        .forEach(button => {
+  document
+    .querySelectorAll(".payment-type")
+    .forEach(button => {
 
-          button.classList.toggle(
-            "active",
-            button.dataset.payment === payment
-          );
+      button.classList.toggle(
+        "active",
+        button.dataset.payment === payment
+      );
 
-        });
+    });
+
+  const cliqBox =
+    document.getElementById("cliqPaymentBox");
+
+  if (cliqBox) {
+    cliqBox.style.display =
+      payment === "cliq" ? "block" : "none";
+  }
+
+  const receiver =
+    document.getElementById("cliqReceiverName");
+
+  const alias =
+    document.getElementById("cliqAliasText");
+
+  const amount =
+    document.getElementById("cliqAmount");
+
+  if (receiver) {
+    receiver.textContent = CLIQ_RECEIVER_NAME;
+  }
+
+  if (alias) {
+    alias.textContent = CLIQ_ALIAS;
+  }
+
+  if (amount) {
+    amount.textContent =
+      `${getCartTotal().toFixed(2)} JOD`;
+  }
+}
     }
+function updateCheckoutTotals() {
 
-    function updateCheckoutTotals() {
+  const totalAmount = getCartTotal().toFixed(2);
 
-      const subtotal =
-        document.getElementById("checkoutSubtotal");
+  const subtotal =
+    document.getElementById("checkoutSubtotal");
 
-      const total =
-        document.getElementById("checkoutTotal");
+  const total =
+    document.getElementById("checkoutTotal");
 
-      if (subtotal) {
-        subtotal.textContent =
-          `${getCartTotal().toFixed(2)} JOD`;
-      }
+  const cliqAmount =
+    document.getElementById("cliqAmount");
 
-      if (total) {
-        total.textContent =
-          `${getCartTotal().toFixed(2)} JOD`;
-      }
+  if (subtotal) {
+    subtotal.textContent = `${totalAmount} JOD`;
+  }
+
+  if (total) {
+    total.textContent = `${totalAmount} JOD`;
+  }
+
+  if (cliqAmount) {
+    cliqAmount.textContent = `${totalAmount} JOD`;
+  }
+}
     }
 
     function sendWhatsAppOrder() {
@@ -2731,7 +2878,26 @@
     /* =========================
        TOAST
        ========================= */
+function copyCliqAlias() {
 
+  navigator.clipboard
+    .writeText(CLIQ_ALIAS)
+    .then(() => {
+      showToast("تم نسخ CliQ Alias 📋");
+    });
+}
+
+function copyCliqAmount() {
+
+  const amount =
+    getCartTotal().toFixed(2);
+
+  navigator.clipboard
+    .writeText(amount)
+    .then(() => {
+      showToast("تم نسخ المبلغ 📋");
+    });
+}
     function showToast(message) {
 
       const toast =
