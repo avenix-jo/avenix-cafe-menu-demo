@@ -1,0 +1,2758 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0908" />
+
+  <title>NOIR CAFÉ | Digital Menu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --bg: #0b0908;
+      --bg-soft: #13100e;
+      --card: #171310;
+      --card-2: #1e1915;
+      --cream: #f6efe7;
+      --cream-2: #e7dbce;
+      --muted: #a99b8f;
+      --gold: #c48a61;
+      --gold-2: #e5b489;
+      --line: rgba(255,255,255,.08);
+      --green: #25d366;
+      --danger: #ff6b6b;
+      --shadow: 0 24px 70px rgba(0,0,0,.35);
+      --radius: 26px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(196,138,97,.12), transparent 30%),
+        radial-gradient(circle at 90% 30%, rgba(229,180,137,.08), transparent 28%),
+        var(--bg);
+      color: var(--cream);
+      min-height: 100vh;
+      padding-bottom: 105px;
+    }
+
+    body.en {
+      font-family: "Inter", sans-serif;
+      direction: ltr;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    .container {
+      width: min(100%, 680px);
+      margin: auto;
+    }
+
+    /* HERO */
+
+    .hero {
+      position: relative;
+      min-height: 425px;
+      overflow: hidden;
+      border-radius: 0 0 42px 42px;
+      background:
+        linear-gradient(to bottom, rgba(5,4,3,.16), rgba(11,9,8,.96)),
+        url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=85")
+        center/cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 75% 20%, rgba(255,255,255,.12), transparent 18%),
+        linear-gradient(180deg, transparent 35%, var(--bg) 100%);
+      pointer-events: none;
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px;
+    }
+
+    .glass-btn {
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(10,8,7,.62);
+      color: white;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 16px;
+      min-height: 46px;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      box-shadow: 0 8px 30px rgba(0,0,0,.18);
+    }
+
+    .top-cart {
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--gold-2);
+      color: #1a100a;
+      font-size: 11px;
+      font-weight: 900;
+      border: 2px solid #201712;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      padding: 95px 22px 34px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.15);
+      background:
+        linear-gradient(145deg, #2a211b, #0f0c0a);
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--gold-2);
+      box-shadow: var(--shadow);
+    }
+
+    .brand-text h1 {
+      font-size: clamp(30px, 8vw, 44px);
+      line-height: 1;
+      letter-spacing: 1px;
+      font-weight: 900;
+    }
+
+    .brand-text p {
+      margin-top: 8px;
+      color: var(--cream-2);
+      opacity: .8;
+      font-size: 13px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-badge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.1);
+      color: var(--cream-2);
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* SEARCH */
+
+    .search-wrap {
+      margin: -30px 18px 0;
+      position: relative;
+      z-index: 8;
+    }
+
+    .search-box {
+      background: rgba(26,21,17,.94);
+      border: 1px solid rgba(229,180,137,.18);
+      border-radius: 22px;
+      padding: 8px 15px;
+      min-height: 62px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 18px 50px rgba(0,0,0,.32);
+      backdrop-filter: blur(18px);
+    }
+
+    .search-box span {
+      font-size: 21px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      outline: 0;
+      color: white;
+      font-size: 14px;
+    }
+
+    .search-box input::placeholder {
+      color: #8e8176;
+    }
+
+    /* INFO */
+
+    .quick-info {
+      margin: 24px 18px 8px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,.025);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+
+    .quick-info div {
+      padding: 7px 4px;
+    }
+
+    .quick-info strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .quick-info span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* CATEGORIES */
+
+    .categories {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      overflow-x: auto;
+      gap: 9px;
+      padding: 15px 18px;
+      scrollbar-width: none;
+      background: linear-gradient(to bottom, rgba(11,9,8,.98), rgba(11,9,8,.88));
+      backdrop-filter: blur(15px);
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-btn {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      background: #16120f;
+      color: var(--cream-2);
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: .25s ease;
+    }
+
+    .category-btn.active {
+      color: #1a100a;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      border-color: transparent;
+      box-shadow: 0 8px 25px rgba(196,138,97,.2);
+    }
+
+    /* OFFER */
+
+    .offer-card {
+      margin: 10px 18px 28px;
+      border-radius: 28px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(196,138,97,.22), rgba(255,255,255,.035)),
+        #18120f;
+      border: 1px solid rgba(229,180,137,.18);
+    }
+
+    .offer-card::after {
+      content: "☕";
+      position: absolute;
+      left: 18px;
+      bottom: -22px;
+      font-size: 100px;
+      opacity: .12;
+      transform: rotate(-12deg);
+    }
+
+    .offer-label {
+      color: var(--gold-2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .offer-card h2 {
+      margin: 8px 0 7px;
+      font-size: 23px;
+    }
+
+    .offer-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+      max-width: 85%;
+    }
+
+    /* MENU */
+
+    .section {
+      padding: 0 18px 28px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .section-title h2 {
+      font-size: 22px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 13px;
+    }
+
+    .product-card {
+      background: linear-gradient(165deg, #1a1512, #100d0b);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: .25s ease;
+      position: relative;
+    }
+
+    .product-card:active {
+      transform: scale(.985);
+    }
+
+    .product-image-wrap {
+      position: relative;
+      aspect-ratio: 1 / .9;
+      overflow: hidden;
+      background: #211a15;
+    }
+
+    .product-image {
+      height: 100%;
+      object-fit: cover;
+      transition: .4s ease;
+    }
+
+    .product-card:hover .product-image {
+      transform: scale(1.04);
+    }
+
+    .tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border-radius: 999px;
+      padding: 6px 9px;
+      background: rgba(10,8,6,.78);
+      border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(10px);
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--gold-2);
+    }
+
+    body.en .tag {
+      right: auto;
+      left: 10px;
+    }
+
+    .product-content {
+      padding: 13px;
+    }
+
+    .product-content h3 {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 5px;
+    }
+
+    .product-content p {
+      min-height: 38px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.8;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .product-footer {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .price {
+      color: var(--gold-2);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .add-btn {
+      width: 37px;
+      height: 37px;
+      border-radius: 13px;
+      border: 0;
+      color: #18100b;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      font-size: 21px;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(196,138,97,.15);
+    }
+
+    .empty-state {
+      grid-column: 1/-1;
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+
+    .footer {
+      margin: 25px 18px 15px;
+      padding: 28px 20px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+      text-align: center;
+    }
+
+    .footer strong {
+      font-size: 19px;
+    }
+
+    .footer p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.9;
+      margin-top: 7px;
+    }
+
+    .powered {
+      margin-top: 18px;
+      color: #6f645d;
+      font-size: 10px;
+    }
+
+    .powered b {
+      color: var(--gold-2);
+      letter-spacing: 1px;
+    }
+
+    /* FLOAT CART */
+
+    .floating-cart {
+      position: fixed;
+      z-index: 50;
+      left: 50%;
+      bottom: 17px;
+      transform: translateX(-50%);
+      width: min(calc(100% - 28px), 640px);
+      min-height: 68px;
+      border: 1px solid rgba(229,180,137,.25);
+      border-radius: 23px;
+      background:
+        linear-gradient(135deg, rgba(39,30,24,.98), rgba(20,16,13,.98));
+      box-shadow: 0 18px 55px rgba(0,0,0,.55);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 14px;
+      color: white;
+      backdrop-filter: blur(20px);
+    }
+
+    .floating-cart.hidden {
+      display: none;
+    }
+
+    .floating-cart-info {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .floating-cart-icon {
+      width: 43px;
+      height: 43px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: var(--gold-2);
+      color: #150d08;
+      font-size: 20px;
+    }
+
+    .floating-cart small {
+      color: var(--muted);
+      display: block;
+      font-size: 10px;
+    }
+
+    .floating-cart strong {
+      font-size: 14px;
+    }
+
+    .view-cart-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.12);
+      color: white;
+      border-radius: 14px;
+      padding: 10px 13px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* OVERLAY / SHEETS */
+
+    .overlay {
+      position: fixed;
+      z-index: 100;
+      inset: 0;
+      background: rgba(0,0,0,.7);
+      backdrop-filter: blur(7px);
+      opacity: 0;
+      pointer-events: none;
+      transition: .25s ease;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sheet {
+      position: fixed;
+      z-index: 110;
+      left: 50%;
+      bottom: 0;
+      transform: translate(-50%, 105%);
+      width: min(100%, 680px);
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 32px 32px 0 0;
+      background: #f8f3ed;
+      color: #241914;
+      padding: 8px 20px 28px;
+      transition: .32s cubic-bezier(.2,.8,.2,1);
+      box-shadow: 0 -20px 80px rgba(0,0,0,.42);
+    }
+
+    .sheet.show {
+      transform: translate(-50%, 0);
+    }
+
+    .sheet-handle {
+      width: 42px;
+      height: 5px;
+      border-radius: 999px;
+      background: #d2c6ba;
+      margin: 3px auto 16px;
+    }
+
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .sheet-header h2 {
+      font-size: 21px;
+    }
+
+    .close-btn {
+      border: 0;
+      background: #eee4dc;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 20px;
+      color: #4a3a31;
+    }
+
+    /* PRODUCT MODAL */
+
+    .selected-product-image {
+      border-radius: 24px;
+      height: 210px;
+      object-fit: cover;
+      margin-bottom: 18px;
+    }
+
+    .selected-product-desc {
+      color: #75655b;
+      font-size: 12px;
+      line-height: 1.9;
+      margin: 8px 0 20px;
+    }
+
+    .option-group {
+      border-top: 1px solid #e5dbd2;
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+
+    .option-group h3 {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: white;
+      border: 1px solid #eadfd6;
+      padding: 13px 14px;
+      border-radius: 16px;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .option-row label {
+      flex: 1;
+      cursor: pointer;
+    }
+
+    .qty-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 21px;
+      padding: 15px;
+      border-radius: 18px;
+      background: white;
+      border: 1px solid #eadfd6;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .qty-controls button {
+      border: 0;
+      background: #241914;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      font-size: 18px;
+    }
+
+    .primary-btn {
+      width: 100%;
+      min-height: 58px;
+      border: 0;
+      border-radius: 18px;
+      margin-top: 18px;
+      color: white;
+      font-size: 14px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #2a1c14, #563a29);
+      box-shadow: 0 13px 30px rgba(58,37,25,.18);
+    }
+
+    /* CART */
+
+    .cart-items {
+      display: grid;
+      gap: 10px;
+    }
+
+    .cart-item {
+      background: white;
+      border: 1px solid #eadfd6;
+      border-radius: 18px;
+      padding: 13px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .cart-item img {
+      width: 68px;
+      height: 68px;
+      border-radius: 14px;
+      object-fit: cover;
+    }
+
+    .cart-item-main {
+      flex: 1;
+    }
+
+    .cart-item h4 {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-options {
+      color: #8a776b;
+      font-size: 9px;
+      line-height: 1.7;
+    }
+
+    .cart-item-bottom {
+      margin-top: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mini-qty {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .mini-qty button {
+      border: 0;
+      background: #f0e7df;
+      width: 27px;
+      height: 27px;
+      border-radius: 9px;
+    }
+
+    .remove-item {
+      border: 0;
+      background: transparent;
+      color: #c34d4d;
+      font-size: 11px;
+      margin-top: 7px;
+    }
+
+    .cart-summary {
+      margin-top: 17px;
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid #eadfd6;
+      padding: 16px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 7px 0;
+      font-size: 13px;
+    }
+
+    .summary-row.total {
+      padding-top: 12px;
+      margin-top: 12px;
+      border-top: 1px solid #e6dcd3;
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    /* CHECKOUT */
+
+    .checkout-section {
+      margin-top: 22px;
+    }
+
+    .checkout-section h3 {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .order-types,
+    .payment-types {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+    }
+
+    .order-type,
+    .payment-type {
+      border: 1px solid #e4d8ce;
+      background: white;
+      border-radius: 17px;
+      padding: 15px 7px;
+      text-align: center;
+      color: #4e3a30;
+      transition: .2s;
+    }
+
+    .order-type span,
+    .payment-type span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .order-type b,
+    .payment-type b {
+      font-size: 10px;
+    }
+
+    .order-type.active,
+    .payment-type.active {
+      border: 2px solid #b97850;
+      background: #fbf4ef;
+      color: #8d5737;
+    }
+
+    .form-group {
+      margin-top: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      margin-bottom: 7px;
+      color: #56443a;
+      font-weight: 700;
+    }
+
+    .form-control {
+      width: 100%;
+      border: 1px solid #e2d6cc;
+      background: white;
+      outline: none;
+      border-radius: 15px;
+      padding: 14px;
+      color: #2b211c;
+      font-size: 12px;
+    }
+
+    textarea.form-control {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .whatsapp-btn {
+      background: linear-gradient(135deg, #1ebd58, #168b42);
+      color: white;
+    }
+
+    .checkout-note {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 9px;
+      line-height: 1.7;
+      color: #89766a;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 200;
+      top: 18px;
+      left: 50%;
+      transform: translate(-50%, -130px);
+      background: #f4ece4;
+      color: #261b15;
+      border-radius: 16px;
+      padding: 12px 17px;
+      box-shadow: var(--shadow);
+      font-size: 11px;
+      font-weight: 800;
+      transition: .3s ease;
+    }
+
+    .toast.show {
+      transform: translate(-50%, 0);
+    }
+
+    @media (min-width: 540px) {
+      .products-grid {
+        grid-template-columns: repeat(3, minmax(0,1fr));
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header class="hero">
+
+      <div class="topbar">
+
+        <button class="glass-btn" onclick="toggleLanguage()">
+          🌐
+          <span id="languageButtonText">EN</span>
+        </button>
+
+        <button class="glass-btn top-cart" onclick="openCart()">
+          🛒
+          <span id="topCartText">السلة</span>
+          <span class="cart-count" id="topCartCount">0</span>
+        </button>
+
+      </div>
+
+      <div class="hero-content">
+
+        <div class="brand-row">
+          <div class="brand-logo">N</div>
+
+          <div class="brand-text">
+            <h1>NOIR CAFÉ</h1>
+            <p id="brandSubtitle">Specialty Coffee · Crafted Moments</p>
+          </div>
+        </div>
+
+        <div class="hero-badges">
+          <span class="hero-badge" id="badge1">☕ قهوة مختصة</span>
+          <span class="hero-badge" id="badge2">⚡ طلب سريع</span>
+          <span class="hero-badge" id="badge3">🛍️ استلام · طاولة · توصيل</span>
+        </div>
+
+      </div>
+    </header>
+
+    <div class="search-wrap">
+      <div class="search-box">
+        <span>⌕</span>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="ابحث عن قهوتك أو الحلو المفضل..."
+          oninput="renderProducts()"
+        >
+      </div>
+    </div>
+
+    <div class="quick-info">
+
+      <div>
+        <strong>4.9 ⭐</strong>
+        <span id="ratingText">تقييم الزبائن</span>
+      </div>
+
+      <div>
+        <strong>10-15</strong>
+        <span id="prepText">دقيقة تحضير</span>
+      </div>
+
+      <div>
+        <strong>1.50+</strong>
+        <span id="priceText">الأسعار تبدأ</span>
+      </div>
+
+    </div>
+
+    <div class="categories" id="categories"></div>
+
+    <section class="offer-card">
+      <span class="offer-label" id="offerLabel">NOIR SIGNATURE</span>
+      <h2 id="offerTitle">خذ لحظة... والباقي علينا.</h2>
+      <p id="offerDescription">
+        جرّب مشروباتنا المميزة والحلويات المختارة بعناية، واطلب مباشرة من هاتفك.
+      </p>
+    </section>
+
+    <main class="section">
+
+      <div class="section-title">
+        <div>
+          <h2 id="menuTitle">المنيو</h2>
+          <p id="menuSubtitle">اختر، خصص، واطلب بكل سهولة</p>
+        </div>
+
+        <span>✦</span>
+      </div>
+
+      <div class="products-grid" id="productsGrid"></div>
+
+    </main>
+
+    <footer class="footer">
+
+      <strong>NOIR CAFÉ</strong>
+
+      <p id="footerText">
+        كل كوب إله قصة. استمتع بتجربة طلب أسرع وأسهل من هاتفك.
+      </p>
+
+      <div class="powered">
+        DIGITAL EXPERIENCE BY <b>AVENIX</b>
+      </div>
+
+    </footer>
+
+  </div>
+
+  <!-- FLOATING CART -->
+
+  <div class="floating-cart hidden" id="floatingCart">
+
+    <div class="floating-cart-info">
+
+      <div class="floating-cart-icon">🛒</div>
+
+      <div>
+        <small id="floatingItemsText">0 عناصر</small>
+        <strong id="floatingTotal">0.00 JOD</strong>
+      </div>
+
+    </div>
+
+    <button class="view-cart-btn" onclick="openCart()" id="viewCartButton">
+      عرض الطلب
+    </button>
+
+  </div>
+
+  <!-- BACKDROP -->
+
+  <div class="overlay" id="overlay" onclick="closeAllSheets()"></div>
+
+  <!-- PRODUCT SHEET -->
+
+  <section class="sheet" id="productSheet">
+
+    <div class="sheet-handle"></div>
+
+    <div class="sheet-header">
+      <h2 id="productSheetTitle">تفاصيل المنتج</h2>
+      <button class="close-btn" onclick="closeAllSheets()">×</button>
+    </div>
+
+    <div id="productDetails"></div>
+
+  </section>
+
+  <!-- CART SHEET -->
+
+  <section class="sheet" id="cartSheet">
+
+    <div class="sheet-handle"></div>
+
+    <div class="sheet-header">
+      <h2 id="cartTitle">🛒 طلبك</h2>
+      <button class="close-btn" onclick="closeAllSheets()">×</button>
+    </div>
+
+    <div id="cartContent"></div>
+
+  </section>
+
+  <!-- CHECKOUT SHEET -->
+
+  <section class="sheet" id="checkoutSheet">
+
+    <div class="sheet-handle"></div>
+
+    <div class="sheet-header">
+      <h2 id="checkoutTitle">إكمال الطلب</h2>
+      <button class="close-btn" onclick="closeAllSheets()">×</button>
+    </div>
+
+    <div class="checkout-section">
+
+      <h3 id="orderTypeTitle">📦 نوع الطلب</h3>
+
+      <div class="order-types">
+
+        <button
+          class="order-type active"
+          data-type="dine"
+          onclick="selectOrderType('dine')"
+        >
+          <span>🍽️</span>
+          <b id="dineLabel">داخل المطعم</b>
+        </button>
+
+        <button
+          class="order-type"
+          data-type="pickup"
+          onclick="selectOrderType('pickup')"
+        >
+          <span>🛍️</span>
+          <b id="pickupLabel">استلام</b>
+        </button>
+
+        <button
+          class="order-type"
+          data-type="delivery"
+          onclick="selectOrderType('delivery')"
+        >
+          <span>🚗</span>
+          <b id="deliveryLabel">توصيل</b>
+        </button>
+
+      </div>
+
+    </div>
+
+    <div id="tableField" class="form-group">
+      <label id="tableLabel">رقم الطاولة</label>
+      <input
+        id="tableNumber"
+        class="form-control"
+        type="number"
+        placeholder="مثال: 7"
+      >
+    </div>
+
+    <div id="addressField" class="form-group" style="display:none">
+      <label id="addressLabel">عنوان التوصيل</label>
+      <input
+        id="deliveryAddress"
+        class="form-control"
+        placeholder="المنطقة / الشارع / المبنى"
+      >
+    </div>
+
+    <div class="form-group">
+      <label id="nameLabel">الاسم</label>
+      <input
+        id="customerName"
+        class="form-control"
+        placeholder="اسمك"
+      >
+    </div>
+
+    <div class="form-group">
+      <label id="notesLabel">ملاحظات على الطلب</label>
+      <textarea
+        id="orderNotes"
+        class="form-control"
+        placeholder="بدون سكر، ثلج أقل، ملاحظات أخرى..."
+      ></textarea>
+    </div>
+
+    <div class="checkout-section">
+
+      <h3 id="paymentTitle">💳 طريقة الدفع</h3>
+
+      <div class="payment-types">
+
+        <button
+          class="payment-type active"
+          data-payment="cash"
+          onclick="selectPayment('cash')"
+        >
+          <span>💵</span>
+          <b id="cashLabel">كاش</b>
+        </button>
+
+        <button
+          class="payment-type"
+          data-payment="cliq"
+          onclick="selectPayment('cliq')"
+        >
+          <span>📲</span>
+          <b>CliQ</b>
+        </button>
+
+        <button
+          class="payment-type"
+          data-payment="counter"
+          onclick="selectPayment('counter')"
+        >
+          <span>🏪</span>
+          <b id="counterLabel">عند الكاشير</b>
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="cart-summary">
+
+      <div class="summary-row">
+        <span id="checkoutSubtotalLabel">المجموع</span>
+        <strong id="checkoutSubtotal">0.00 JOD</strong>
+      </div>
+
+      <div class="summary-row total">
+        <span id="checkoutTotalLabel">الإجمالي</span>
+        <strong id="checkoutTotal">0.00 JOD</strong>
+      </div>
+
+    </div>
+
+    <button class="primary-btn whatsapp-btn" onclick="sendWhatsAppOrder()">
+      <span id="whatsappButtonText">إرسال الطلب عبر WhatsApp</span>
+      &nbsp; 💬
+    </button>
+
+    <p class="checkout-note" id="checkoutNote">
+      سيتم فتح واتساب برسالة جاهزة تحتوي تفاصيل طلبك.
+    </p>
+
+  </section>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+
+    /* =========================
+       RESTAURANT SETTINGS
+       ========================= */
+
+    const WHATSAPP_NUMBER = "9627XXXXXXXX";
+
+    const restaurant = {
+      ar: "NOIR CAFÉ",
+      en: "NOIR CAFÉ"
+    };
+
+    /* =========================
+       LANGUAGE
+       ========================= */
+
+    let currentLanguage =
+      localStorage.getItem("noir_language") || "ar";
+
+    const translations = {
+
+      ar: {
+        langButton: "EN",
+        cart: "السلة",
+
+        badge1: "☕ قهوة مختصة",
+        badge2: "⚡ طلب سريع",
+        badge3: "🛍️ استلام · طاولة · توصيل",
+
+        search: "ابحث عن قهوتك أو الحلو المفضل...",
+
+        rating: "تقييم الزبائن",
+        prep: "دقيقة تحضير",
+        prices: "الأسعار تبدأ",
+
+        offerLabel: "NOIR SIGNATURE",
+        offerTitle: "خذ لحظة... والباقي علينا.",
+        offerDescription:
+          "جرّب مشروباتنا المميزة والحلويات المختارة بعناية، واطلب مباشرة من هاتفك.",
+
+        menuTitle: "المنيو",
+        menuSubtitle: "اختر، خصص، واطلب بكل سهولة",
+
+        footer:
+          "كل كوب إله قصة. استمتع بتجربة طلب أسرع وأسهل من هاتفك.",
+
+        viewCart: "عرض الطلب",
+        item: "عنصر",
+        items: "عناصر",
+
+        productDetails: "تفاصيل المنتج",
+        size: "اختر الحجم",
+        extras: "إضافات",
+        quantity: "الكمية",
+        addToCart: "أضف للطلب",
+
+        cartTitle: "🛒 طلبك",
+        emptyCart: "السلة فاضية لسا ☕",
+        remove: "حذف",
+
+        subtotal: "المجموع",
+        total: "الإجمالي",
+        checkout: "متابعة الطلب",
+
+        checkoutTitle: "إكمال الطلب",
+        orderType: "📦 نوع الطلب",
+
+        dine: "داخل المطعم",
+        pickup: "استلام",
+        delivery: "توصيل",
+
+        table: "رقم الطاولة",
+        tablePlaceholder: "مثال: 7",
+
+        address: "عنوان التوصيل",
+        addressPlaceholder: "المنطقة / الشارع / المبنى",
+
+        name: "الاسم",
+        namePlaceholder: "اسمك",
+
+        notes: "ملاحظات على الطلب",
+        notesPlaceholder: "بدون سكر، ثلج أقل، ملاحظات أخرى...",
+
+        payment: "💳 طريقة الدفع",
+        cash: "كاش",
+        counter: "عند الكاشير",
+
+        whatsapp: "إرسال الطلب عبر WhatsApp",
+
+        checkoutNote:
+          "سيتم فتح واتساب برسالة جاهزة تحتوي تفاصيل طلبك.",
+
+        added: "تمت الإضافة للسلة 🔥",
+        fillName: "اكتب الاسم أولًا",
+        fillTable: "اكتب رقم الطاولة",
+        fillAddress: "اكتب عنوان التوصيل",
+
+        best: "الأكثر طلبًا",
+        new: "جديد",
+        signature: "Signature",
+
+        all: "الكل",
+        hot: "قهوة ساخنة",
+        cold: "مشروبات باردة",
+        dessert: "حلويات",
+        food: "فطور",
+
+        noResults: "ما لقينا نتائج مطابقة 😅"
+      },
+
+      en: {
+        langButton: "AR",
+        cart: "Cart",
+
+        badge1: "☕ Specialty Coffee",
+        badge2: "⚡ Fast Ordering",
+        badge3: "🛍️ Dine-in · Pickup · Delivery",
+
+        search: "Search coffee, desserts and more...",
+
+        rating: "Customer rating",
+        prep: "min preparation",
+        prices: "Starting prices",
+
+        offerLabel: "NOIR SIGNATURE",
+        offerTitle: "Take a moment. We handle the rest.",
+        offerDescription:
+          "Discover our signature drinks and carefully selected desserts, and order directly from your phone.",
+
+        menuTitle: "Menu",
+        menuSubtitle: "Choose, customize and order",
+
+        footer:
+          "Every cup has a story. Enjoy a faster and smarter ordering experience.",
+
+        viewCart: "View Order",
+        item: "item",
+        items: "items",
+
+        productDetails: "Product Details",
+        size: "Choose Size",
+        extras: "Extras",
+        quantity: "Quantity",
+        addToCart: "Add to Order",
+
+        cartTitle: "🛒 Your Order",
+        emptyCart: "Your cart is still empty ☕",
+        remove: "Remove",
+
+        subtotal: "Subtotal",
+        total: "Total",
+        checkout: "Continue",
+
+        checkoutTitle: "Checkout",
+        orderType: "📦 Order Type",
+
+        dine: "Dine In",
+        pickup: "Pickup",
+        delivery: "Delivery",
+
+        table: "Table Number",
+        tablePlaceholder: "Example: 7",
+
+        address: "Delivery Address",
+        addressPlaceholder: "Area / street / building",
+
+        name: "Name",
+        namePlaceholder: "Your name",
+
+        notes: "Order Notes",
+        notesPlaceholder: "No sugar, less ice, other notes...",
+
+        payment: "💳 Payment Method",
+        cash: "Cash",
+        counter: "At Counter",
+
+        whatsapp: "Send Order via WhatsApp",
+
+        checkoutNote:
+          "WhatsApp will open with your full order ready to send.",
+
+        added: "Added to cart 🔥",
+        fillName: "Please enter your name",
+        fillTable: "Please enter the table number",
+        fillAddress: "Please enter the delivery address",
+
+        best: "Best Seller",
+        new: "New",
+        signature: "Signature",
+
+        all: "All",
+        hot: "Hot Coffee",
+        cold: "Cold Drinks",
+        dessert: "Desserts",
+        food: "Breakfast",
+
+        noResults: "No matching items found 😅"
+      }
+    };
+
+    function t(key) {
+      return translations[currentLanguage][key] || key;
+    }
+
+    /* =========================
+       MENU PRODUCTS
+       ========================= */
+
+    const products = [
+
+      {
+        id: 1,
+        category: "hot",
+        tag: "best",
+
+        name: {
+          ar: "لاتيه نوار",
+          en: "NOIR Latte"
+        },
+
+        description: {
+          ar: "إسبريسو غني مع حليب مبخر ولمسة كراميل خفيفة.",
+          en: "Rich espresso with steamed milk and a subtle caramel finish."
+        },
+
+        basePrice: 2.75,
+
+        image:
+          "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=85"
+      },
+
+      {
+        id: 2,
+        category: "hot",
+        tag: "signature",
+
+        name: {
+          ar: "سبانيش لاتيه",
+          en: "Spanish Latte"
+        },
+
+        description: {
+          ar: "إسبريسو، حليب وقوام كريمي بحلاوة متوازنة.",
+          en: "Espresso and creamy milk with a perfectly balanced sweetness."
+        },
+
+        basePrice: 3.00,
+
+        image:
+          "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85"
+      },
+
+      {
+        id: 3,
+        category: "cold",
+        tag: "best",
+
+        name: {
+          ar: "آيس لاتيه",
+          en: "Iced Latte"
+        },
+
+        description: {
+          ar: "إسبريسو بارد مع حليب وثلج لانتعاش خفيف.",
+          en: "Chilled espresso with milk and ice for a smooth refreshment."
+        },
+
+        basePrice: 3.25,
+
+        image:
+          "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=900&q=85"
+      },
+
+      {
+        id: 4,
+        category: "cold",
+        tag: "new",
+
+        name: {
+          ar: "كراميل كولد برو",
+          en: "Caramel Cold Brew"
+        },
+
+        description: {
+          ar: "كولد برو ناعم مع كراميل وكريمة باردة خفيفة.",
+          en: "Smooth cold brew finished with caramel and soft cold foam."
+        },
+
+        basePrice: 3.75,
+
+        image:
+          "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=85"
+      },
+
+      {
+        id: 5,
+        category: "dessert",
+        tag: "best",
+
+        name: {
+          ar: "تشيز كيك نوار",
+          en: "NOIR Cheesecake"
+        },
+
+        description: {
+          ar: "تشيز كيك كريمي بقاعدة بسكويت وصوص مميز.",
+          en: "Creamy cheesecake with a biscuit base and signature sauce."
+        },
+
+        basePrice: 3.50,
+
+        image:
+          "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=85"
+      },
+
+      {
+        id: 6,
+        category: "dessert",
+        tag: "new",
+
+        name: {
+          ar: "كرواسون شوكولاتة",
+          en: "Chocolate Croissant"
+        },
+
+        description: {
+          ar: "كرواسون طازج بطبقات هشة وحشوة شوكولاتة.",
+          en: "Fresh flaky croissant filled with rich chocolate."
+        },
+
+        basePrice: 2.25,
+
+        image:
+          "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&q=85"
+      },
+
+      {
+        id: 7,
+        category: "food",
+        tag: "signature",
+
+        name: {
+          ar: "كرواسون تركي",
+          en: "Turkey Croissant"
+        },
+
+        description: {
+          ar: "كرواسون طازج مع تركي مدخن، جبنة وصوص نوار.",
+          en: "Fresh croissant with smoked turkey, cheese and NOIR sauce."
+        },
+
+        basePrice: 3.25,
+
+        image:
+          "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=900&q=85"
+      },
+
+      {
+        id: 8,
+        category: "food",
+        tag: "best",
+
+        name: {
+          ar: "أفوكادو توست",
+          en: "Avocado Toast"
+        },
+
+        description: {
+          ar: "خبز محمص، أفوكادو، بيض وتتبيلة خفيفة.",
+          en: "Toasted bread topped with avocado, egg and light seasoning."
+        },
+
+        basePrice: 4.25,
+
+        image:
+          "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?auto=format&fit=crop&w=900&q=85"
+      }
+
+    ];
+
+    const sizes = [
+      {
+        id: "regular",
+        ar: "عادي",
+        en: "Regular",
+        price: 0
+      },
+      {
+        id: "large",
+        ar: "كبير",
+        en: "Large",
+        price: 0.50
+      }
+    ];
+
+    const extras = [
+      {
+        id: "shot",
+        ar: "إضافة شوت إسبريسو",
+        en: "Extra Espresso Shot",
+        price: 0.50
+      },
+      {
+        id: "caramel",
+        ar: "كراميل",
+        en: "Caramel",
+        price: 0.35
+      },
+      {
+        id: "vanilla",
+        ar: "فانيلا",
+        en: "Vanilla",
+        price: 0.35
+      }
+    ];
+
+    /* =========================
+       STATE
+       ========================= */
+
+    let activeCategory = "all";
+    let selectedProduct = null;
+    let selectedQuantity = 1;
+    let selectedSize = "regular";
+    let selectedExtras = [];
+
+    let orderType = "dine";
+    let paymentMethod = "cash";
+
+    let cart = JSON.parse(
+      localStorage.getItem("noir_cart") || "[]"
+    );
+
+    /* =========================
+       CATEGORIES
+       ========================= */
+
+    function renderCategories() {
+
+      const categories = [
+        { id: "all", label: t("all"), icon: "✦" },
+        { id: "hot", label: t("hot"), icon: "☕" },
+        { id: "cold", label: t("cold"), icon: "🧊" },
+        { id: "dessert", label: t("dessert"), icon: "🍰" },
+        { id: "food", label: t("food"), icon: "🥐" }
+      ];
+
+      document.getElementById("categories").innerHTML =
+        categories.map(category => `
+          <button
+            class="category-btn ${activeCategory === category.id ? "active" : ""}"
+            onclick="changeCategory('${category.id}')"
+          >
+            ${category.icon} ${category.label}
+          </button>
+        `).join("");
+    }
+
+    function changeCategory(category) {
+      activeCategory = category;
+      renderCategories();
+      renderProducts();
+    }
+
+    /* =========================
+       PRODUCTS
+       ========================= */
+
+    function renderProducts() {
+
+      const search =
+        document.getElementById("searchInput")
+          .value
+          .trim()
+          .toLowerCase();
+
+      const filtered = products.filter(product => {
+
+        const categoryMatch =
+          activeCategory === "all" ||
+          product.category === activeCategory;
+
+        const text =
+          (
+            product.name[currentLanguage] +
+            " " +
+            product.description[currentLanguage]
+          ).toLowerCase();
+
+        return categoryMatch && text.includes(search);
+      });
+
+      const grid =
+        document.getElementById("productsGrid");
+
+      if (!filtered.length) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size:40px;margin-bottom:10px;">☕</div>
+            ${t("noResults")}
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML =
+        filtered.map(product => {
+
+          const tag =
+            product.tag
+              ? `<span class="tag">${t(product.tag)}</span>`
+              : "";
+
+          return `
+            <article class="product-card">
+
+              <div
+                class="product-image-wrap"
+                onclick="openProduct(${product.id})"
+              >
+
+                <img
+                  class="product-image"
+                  src="${product.image}"
+                  alt="${product.name[currentLanguage]}"
+                >
+
+                ${tag}
+
+              </div>
+
+              <div class="product-content">
+
+                <h3>${product.name[currentLanguage]}</h3>
+
+                <p>
+                  ${product.description[currentLanguage]}
+                </p>
+
+                <div class="product-footer">
+
+                  <span class="price">
+                    ${product.basePrice.toFixed(2)} JOD
+                  </span>
+
+                  <button
+                    class="add-btn"
+                    onclick="openProduct(${product.id})"
+                  >
+                    +
+                  </button>
+
+                </div>
+
+              </div>
+
+            </article>
+          `;
+        }).join("");
+    }
+
+    /* =========================
+       PRODUCT SHEET
+       ========================= */
+
+    function openProduct(id) {
+
+      selectedProduct =
+        products.find(product => product.id === id);
+
+      selectedQuantity = 1;
+      selectedSize = "regular";
+      selectedExtras = [];
+
+      renderProductSheet();
+
+      showSheet("productSheet");
+    }
+
+    function renderProductSheet() {
+
+      if (!selectedProduct) return;
+
+      const product = selectedProduct;
+
+      document.getElementById("productSheetTitle")
+        .textContent = t("productDetails");
+
+      document.getElementById("productDetails").innerHTML = `
+
+        <img
+          class="selected-product-image"
+          src="${product.image}"
+          alt="${product.name[currentLanguage]}"
+        >
+
+        <h2>${product.name[currentLanguage]}</h2>
+
+        <p class="selected-product-desc">
+          ${product.description[currentLanguage]}
+        </p>
+
+        <div class="option-group">
+
+          <h3>${t("size")}</h3>
+
+          ${sizes.map(size => `
+            <div class="option-row">
+
+              <label>
+                <input
+                  type="radio"
+                  name="size"
+                  value="${size.id}"
+                  ${selectedSize === size.id ? "checked" : ""}
+                  onchange="selectSize('${size.id}')"
+                >
+
+                &nbsp;
+                ${size[currentLanguage]}
+              </label>
+
+              <strong>
+                ${
+                  size.price === 0
+                    ? "—"
+                    : "+" + size.price.toFixed(2) + " JOD"
+                }
+              </strong>
+
+            </div>
+          `).join("")}
+
+        </div>
+
+        <div class="option-group">
+
+          <h3>${t("extras")}</h3>
+
+          ${extras.map(extra => `
+            <div class="option-row">
+
+              <label>
+
+                <input
+                  type="checkbox"
+                  value="${extra.id}"
+                  ${selectedExtras.includes(extra.id) ? "checked" : ""}
+                  onchange="toggleExtra('${extra.id}')"
+                >
+
+                &nbsp;
+                ${extra[currentLanguage]}
+
+              </label>
+
+              <strong>
+                +${extra.price.toFixed(2)} JOD
+              </strong>
+
+            </div>
+          `).join("")}
+
+        </div>
+
+        <div class="qty-row">
+
+          <strong>${t("quantity")}</strong>
+
+          <div class="qty-controls">
+
+            <button onclick="changeSelectedQuantity(-1)">−</button>
+
+            <b>${selectedQuantity}</b>
+
+            <button onclick="changeSelectedQuantity(1)">+</button>
+
+          </div>
+
+        </div>
+
+        <button
+          class="primary-btn"
+          onclick="addSelectedProductToCart()"
+        >
+          ${t("addToCart")}
+          ·
+          ${calculateSelectedProductTotal().toFixed(2)} JOD
+        </button>
+      `;
+    }
+
+    function selectSize(size) {
+      selectedSize = size;
+      renderProductSheet();
+    }
+
+    function toggleExtra(extraId) {
+
+      if (selectedExtras.includes(extraId)) {
+
+        selectedExtras =
+          selectedExtras.filter(id => id !== extraId);
+
+      } else {
+
+        selectedExtras.push(extraId);
+
+      }
+
+      renderProductSheet();
+    }
+
+    function changeSelectedQuantity(amount) {
+
+      selectedQuantity =
+        Math.max(1, selectedQuantity + amount);
+
+      renderProductSheet();
+    }
+
+    function calculateSelectedProductTotal() {
+
+      if (!selectedProduct) return 0;
+
+      const size =
+        sizes.find(s => s.id === selectedSize);
+
+      const extrasTotal =
+        selectedExtras.reduce((total, id) => {
+
+          const extra =
+            extras.find(extra => extra.id === id);
+
+          return total + (extra?.price || 0);
+
+        }, 0);
+
+      return (
+        selectedProduct.basePrice +
+        (size?.price || 0) +
+        extrasTotal
+      ) * selectedQuantity;
+    }
+
+    /* =========================
+       CART
+       ========================= */
+
+    function addSelectedProductToCart() {
+
+      const size =
+        sizes.find(s => s.id === selectedSize);
+
+      const chosenExtras =
+        selectedExtras.map(id =>
+          extras.find(extra => extra.id === id)
+        ).filter(Boolean);
+
+      cart.push({
+
+        cartId:
+          Date.now() +
+          "_" +
+          Math.random().toString(16).slice(2),
+
+        productId:
+          selectedProduct.id,
+
+        quantity:
+          selectedQuantity,
+
+        size:
+          size,
+
+        extras:
+          chosenExtras
+
+      });
+
+      saveCart();
+
+      closeAllSheets();
+
+      showToast(t("added"));
+    }
+
+    function saveCart() {
+
+      localStorage.setItem(
+        "noir_cart",
+        JSON.stringify(cart)
+      );
+
+      updateCartUI();
+    }
+
+    function getCartItemPrice(item) {
+
+      const product =
+        products.find(p => p.id === item.productId);
+
+      if (!product) return 0;
+
+      const extrasTotal =
+        item.extras.reduce(
+          (sum, extra) => sum + extra.price,
+          0
+        );
+
+      return (
+        product.basePrice +
+        item.size.price +
+        extrasTotal
+      ) * item.quantity;
+    }
+
+    function getCartTotal() {
+
+      return cart.reduce(
+        (total, item) =>
+          total + getCartItemPrice(item),
+        0
+      );
+    }
+
+    function getCartQuantity() {
+
+      return cart.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+      );
+    }
+
+    function updateCartUI() {
+
+      const quantity = getCartQuantity();
+
+      document.getElementById("topCartCount")
+        .textContent = quantity;
+
+      const floating =
+        document.getElementById("floatingCart");
+
+      if (quantity > 0) {
+
+        floating.classList.remove("hidden");
+
+        document.getElementById("floatingItemsText")
+          .textContent =
+          `${quantity} ${quantity === 1 ? t("item") : t("items")}`;
+
+        document.getElementById("floatingTotal")
+          .textContent =
+          `${getCartTotal().toFixed(2)} JOD`;
+
+      } else {
+
+        floating.classList.add("hidden");
+
+      }
+
+      updateCheckoutTotals();
+    }
+
+    function openCart() {
+
+      renderCart();
+
+      showSheet("cartSheet");
+    }
+
+    function renderCart() {
+
+      const container =
+        document.getElementById("cartContent");
+
+      document.getElementById("cartTitle")
+        .textContent = t("cartTitle");
+
+      if (!cart.length) {
+
+        container.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size:44px;margin-bottom:12px;">☕</div>
+            ${t("emptyCart")}
+          </div>
+        `;
+
+        return;
+      }
+
+      container.innerHTML = `
+
+        <div class="cart-items">
+
+          ${cart.map(item => {
+
+            const product =
+              products.find(p => p.id === item.productId);
+
+            const extrasText =
+              item.extras.length
+                ? item.extras
+                    .map(extra => extra[currentLanguage])
+                    .join(" · ")
+                : "";
+
+            return `
+
+              <div class="cart-item">
+
+                <img
+                  src="${product.image}"
+                  alt="${product.name[currentLanguage]}"
+                >
+
+                <div class="cart-item-main">
+
+                  <h4>
+                    ${product.name[currentLanguage]}
+                  </h4>
+
+                  <div class="cart-item-options">
+
+                    ${item.size[currentLanguage]}
+
+                    ${
+                      extrasText
+                        ? "<br>" + extrasText
+                        : ""
+                    }
+
+                  </div>
+
+                  <div class="cart-item-bottom">
+
+                    <strong>
+                      ${getCartItemPrice(item).toFixed(2)} JOD
+                    </strong>
+
+                    <div class="mini-qty">
+
+                      <button
+                        onclick="changeCartQuantity('${item.cartId}', -1)"
+                      >
+                        −
+                      </button>
+
+                      <span>${item.quantity}</span>
+
+                      <button
+                        onclick="changeCartQuantity('${item.cartId}', 1)"
+                      >
+                        +
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                  <button
+                    class="remove-item"
+                    onclick="removeCartItem('${item.cartId}')"
+                  >
+                    ${t("remove")}
+                  </button>
+
+                </div>
+
+              </div>
+
+            `;
+
+          }).join("")}
+
+        </div>
+
+        <div class="cart-summary">
+
+          <div class="summary-row">
+            <span>${t("subtotal")}</span>
+            <strong>${getCartTotal().toFixed(2)} JOD</strong>
+          </div>
+
+          <div class="summary-row total">
+            <span>${t("total")}</span>
+            <strong>${getCartTotal().toFixed(2)} JOD</strong>
+          </div>
+
+        </div>
+
+        <button
+          class="primary-btn"
+          onclick="openCheckout()"
+        >
+          ${t("checkout")}
+        </button>
+      `;
+    }
+
+    function changeCartQuantity(cartId, amount) {
+
+      const item =
+        cart.find(item => item.cartId === cartId);
+
+      if (!item) return;
+
+      item.quantity += amount;
+
+      if (item.quantity <= 0) {
+
+        cart =
+          cart.filter(item => item.cartId !== cartId);
+
+      }
+
+      saveCart();
+      renderCart();
+    }
+
+    function removeCartItem(cartId) {
+
+      cart =
+        cart.filter(item => item.cartId !== cartId);
+
+      saveCart();
+      renderCart();
+    }
+
+    /* =========================
+       CHECKOUT
+       ========================= */
+
+    function openCheckout() {
+
+      if (!cart.length) return;
+
+      closeAllSheets(false);
+
+      updateCheckoutLabels();
+      updateCheckoutTotals();
+
+      showSheet("checkoutSheet");
+    }
+
+    function selectOrderType(type) {
+
+      orderType = type;
+
+      document
+        .querySelectorAll(".order-type")
+        .forEach(button => {
+          button.classList.toggle(
+            "active",
+            button.dataset.type === type
+          );
+        });
+
+      document.getElementById("tableField")
+        .style.display =
+        type === "dine"
+          ? "block"
+          : "none";
+
+      document.getElementById("addressField")
+        .style.display =
+        type === "delivery"
+          ? "block"
+          : "none";
+    }
+
+    function selectPayment(payment) {
+
+      paymentMethod = payment;
+
+      document
+        .querySelectorAll(".payment-type")
+        .forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.payment === payment
+          );
+
+        });
+    }
+
+    function updateCheckoutTotals() {
+
+      const subtotal =
+        document.getElementById("checkoutSubtotal");
+
+      const total =
+        document.getElementById("checkoutTotal");
+
+      if (subtotal) {
+        subtotal.textContent =
+          `${getCartTotal().toFixed(2)} JOD`;
+      }
+
+      if (total) {
+        total.textContent =
+          `${getCartTotal().toFixed(2)} JOD`;
+      }
+    }
+
+    function sendWhatsAppOrder() {
+
+      const name =
+        document.getElementById("customerName")
+          .value
+          .trim();
+
+      const table =
+        document.getElementById("tableNumber")
+          .value
+          .trim();
+
+      const address =
+        document.getElementById("deliveryAddress")
+          .value
+          .trim();
+
+      const notes =
+        document.getElementById("orderNotes")
+          .value
+          .trim();
+
+      if (!name) {
+        showToast(t("fillName"));
+        return;
+      }
+
+      if (orderType === "dine" && !table) {
+        showToast(t("fillTable"));
+        return;
+      }
+
+      if (orderType === "delivery" && !address) {
+        showToast(t("fillAddress"));
+        return;
+      }
+
+      const typeText = {
+        dine:
+          currentLanguage === "ar"
+            ? "داخل المطعم"
+            : "Dine In",
+
+        pickup:
+          currentLanguage === "ar"
+            ? "استلام"
+            : "Pickup",
+
+        delivery:
+          currentLanguage === "ar"
+            ? "توصيل"
+            : "Delivery"
+      };
+
+      const paymentText = {
+        cash:
+          currentLanguage === "ar"
+            ? "كاش"
+            : "Cash",
+
+        cliq: "CliQ",
+
+        counter:
+          currentLanguage === "ar"
+            ? "الدفع عند الكاشير"
+            : "Pay at Counter"
+      };
+
+      let message = "";
+
+      if (currentLanguage === "ar") {
+
+        message +=
+          `☕ طلب جديد من ${restaurant.ar}\n\n`;
+
+        message +=
+          `👤 الاسم: ${name}\n`;
+
+        message +=
+          `📦 نوع الطلب: ${typeText[orderType]}\n`;
+
+        if (orderType === "dine") {
+          message += `🍽️ رقم الطاولة: ${table}\n`;
+        }
+
+        if (orderType === "delivery") {
+          message += `📍 العنوان: ${address}\n`;
+        }
+
+        message +=
+          `💳 الدفع: ${paymentText[paymentMethod]}\n\n`;
+
+        message += `🛒 الطلب:\n`;
+
+      } else {
+
+        message +=
+          `☕ New order from ${restaurant.en}\n\n`;
+
+        message +=
+          `👤 Name: ${name}\n`;
+
+        message +=
+          `📦 Order type: ${typeText[orderType]}\n`;
+
+        if (orderType === "dine") {
+          message += `🍽️ Table: ${table}\n`;
+        }
+
+        if (orderType === "delivery") {
+          message += `📍 Address: ${address}\n`;
+        }
+
+        message +=
+          `💳 Payment: ${paymentText[paymentMethod]}\n\n`;
+
+        message += `🛒 Order:\n`;
+      }
+
+      cart.forEach((item, index) => {
+
+        const product =
+          products.find(p => p.id === item.productId);
+
+        message +=
+          `\n${index + 1}. ${product.name[currentLanguage]} × ${item.quantity}`;
+
+        message +=
+          `\n   ${item.size[currentLanguage]}`;
+
+        if (item.extras.length) {
+
+          message +=
+            `\n   + ${item.extras
+              .map(extra => extra[currentLanguage])
+              .join(", ")}`;
+
+        }
+
+        message +=
+          `\n   ${getCartItemPrice(item).toFixed(2)} JOD\n`;
+      });
+
+      message +=
+        currentLanguage === "ar"
+          ? `\n💰 الإجمالي: ${getCartTotal().toFixed(2)} JOD`
+          : `\n💰 Total: ${getCartTotal().toFixed(2)} JOD`;
+
+      if (notes) {
+
+        message +=
+          currentLanguage === "ar"
+            ? `\n\n📝 ملاحظات: ${notes}`
+            : `\n\n📝 Notes: ${notes}`;
+      }
+
+      const url =
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+      window.open(url, "_blank");
+    }
+
+    /* =========================
+       SHEETS
+       ========================= */
+
+    function showSheet(id) {
+
+      document.getElementById("overlay")
+        .classList.add("show");
+
+      document.getElementById(id)
+        .classList.add("show");
+
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeAllSheets(hideOverlay = true) {
+
+      document
+        .querySelectorAll(".sheet")
+        .forEach(sheet =>
+          sheet.classList.remove("show")
+        );
+
+      if (hideOverlay) {
+        document.getElementById("overlay")
+          .classList.remove("show");
+      }
+
+      document.body.style.overflow = "";
+    }
+
+    /* =========================
+       LANGUAGE
+       ========================= */
+
+    function toggleLanguage() {
+
+      currentLanguage =
+        currentLanguage === "ar"
+          ? "en"
+          : "ar";
+
+      localStorage.setItem(
+        "noir_language",
+        currentLanguage
+      );
+
+      applyLanguage();
+    }
+
+    function applyLanguage() {
+
+      const isArabic =
+        currentLanguage === "ar";
+
+      document.documentElement.lang =
+        isArabic ? "ar" : "en";
+
+      document.documentElement.dir =
+        isArabic ? "rtl" : "ltr";
+
+      document.body.classList.toggle(
+        "en",
+        !isArabic
+      );
+
+      document.getElementById("languageButtonText")
+        .textContent = t("langButton");
+
+      document.getElementById("topCartText")
+        .textContent = t("cart");
+
+      document.getElementById("badge1")
+        .textContent = t("badge1");
+
+      document.getElementById("badge2")
+        .textContent = t("badge2");
+
+      document.getElementById("badge3")
+        .textContent = t("badge3");
+
+      document.getElementById("searchInput")
+        .placeholder = t("search");
+
+      document.getElementById("ratingText")
+        .textContent = t("rating");
+
+      document.getElementById("prepText")
+        .textContent = t("prep");
+
+      document.getElementById("priceText")
+        .textContent = t("prices");
+
+      document.getElementById("offerLabel")
+        .textContent = t("offerLabel");
+
+      document.getElementById("offerTitle")
+        .textContent = t("offerTitle");
+
+      document.getElementById("offerDescription")
+        .textContent = t("offerDescription");
+
+      document.getElementById("menuTitle")
+        .textContent = t("menuTitle");
+
+      document.getElementById("menuSubtitle")
+        .textContent = t("menuSubtitle");
+
+      document.getElementById("footerText")
+        .textContent = t("footer");
+
+      document.getElementById("viewCartButton")
+        .textContent = t("viewCart");
+
+      updateCheckoutLabels();
+
+      renderCategories();
+      renderProducts();
+      updateCartUI();
+
+      if (
+        document
+          .getElementById("cartSheet")
+          .classList.contains("show")
+      ) {
+        renderCart();
+      }
+
+      if (
+        document
+          .getElementById("productSheet")
+          .classList.contains("show")
+      ) {
+        renderProductSheet();
+      }
+    }
+
+    function updateCheckoutLabels() {
+
+      document.getElementById("checkoutTitle")
+        .textContent = t("checkoutTitle");
+
+      document.getElementById("orderTypeTitle")
+        .textContent = t("orderType");
+
+      document.getElementById("dineLabel")
+        .textContent = t("dine");
+
+      document.getElementById("pickupLabel")
+        .textContent = t("pickup");
+
+      document.getElementById("deliveryLabel")
+        .textContent = t("delivery");
+
+      document.getElementById("tableLabel")
+        .textContent = t("table");
+
+      document.getElementById("tableNumber")
+        .placeholder = t("tablePlaceholder");
+
+      document.getElementById("addressLabel")
+        .textContent = t("address");
+
+      document.getElementById("deliveryAddress")
+        .placeholder = t("addressPlaceholder");
+
+      document.getElementById("nameLabel")
+        .textContent = t("name");
+
+      document.getElementById("customerName")
+        .placeholder = t("namePlaceholder");
+
+      document.getElementById("notesLabel")
+        .textContent = t("notes");
+
+      document.getElementById("orderNotes")
+        .placeholder = t("notesPlaceholder");
+
+      document.getElementById("paymentTitle")
+        .textContent = t("payment");
+
+      document.getElementById("cashLabel")
+        .textContent = t("cash");
+
+      document.getElementById("counterLabel")
+        .textContent = t("counter");
+
+      document.getElementById("checkoutSubtotalLabel")
+        .textContent = t("subtotal");
+
+      document.getElementById("checkoutTotalLabel")
+        .textContent = t("total");
+
+      document.getElementById("whatsappButtonText")
+        .textContent = t("whatsapp");
+
+      document.getElementById("checkoutNote")
+        .textContent = t("checkoutNote");
+    }
+
+    /* =========================
+       TOAST
+       ========================= */
+
+    function showToast(message) {
+
+      const toast =
+        document.getElementById("toast");
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
+    }
+
+    /* =========================
+       START
+       ========================= */
+
+    applyLanguage();
+    updateCartUI();
+
+  </script>
+
+</body>
+</html>
