@@ -977,6 +977,10 @@
           <span class="hero-badge" id="badge1">☕ قهوة مختصة</span>
           <span class="hero-badge" id="badge2">⚡ طلب سريع</span>
           <span class="hero-badge" id="badge3">🛍️ استلام · طاولة · توصيل</span>
+          
+<span class="hero-badge" id="tableBadge" style="display:none;">
+  🍽️ أنت على طاولة
+</span>
         </div>
 
       </div>
@@ -1864,7 +1868,19 @@ const CLIQ_ALIAS = "NOIRCAFE";
     let selectedQuantity = 1;
     let selectedSize = "regular";
     let selectedExtras = [];
+const urlParams = new URLSearchParams(window.location.search);
 
+const tableFromUrl = (() => {
+  const value = urlParams.get("table");
+
+  if (!value) return "";
+
+  const cleaned = value.trim();
+
+  return /^\d{1,3}$/.test(cleaned)
+    ? cleaned
+    : "";
+})();
     let orderType = "dine";
     let paymentMethod = "cash";
 
@@ -2481,7 +2497,51 @@ const CLIQ_ALIAS = "NOIRCAFE";
 
       updateCheckoutLabels();
       updateCheckoutTotals();
+if (tableFromUrl) {
 
+  orderType = "dine";
+
+  selectOrderType("dine");
+
+  const tableInput =
+    document.getElementById("tableNumber");
+  
+if (tableInput) {
+  tableInput.value = tableFromUrl;
+  tableInput.readOnly = true;
+
+  tableInput.style.background = "#f3ebe5";
+  tableInput.style.fontWeight = "900";
+  tableInput.style.color = "#7b4f33";
+
+  const tableLabel =
+    document.getElementById("tableLabel");
+
+  if (tableLabel) {
+    tableLabel.textContent =
+      currentLanguage === "ar"
+        ? "🔒 رقم الطاولة — محدد تلقائيًا من QR"
+        : "🔒 Table Number — detected from QR";
+  }
+}
+  const orderTypeButtons =
+  document.querySelectorAll(".order-type");
+
+orderTypeButtons.forEach(button => {
+
+  if (tableFromUrl) {
+
+    button.style.display =
+      button.dataset.type === "dine"
+        ? "block"
+        : "none";
+
+  } else {
+
+    button.style.display = "block";
+
+  }
+});    
       showSheet("checkoutSheet");
     }
 
@@ -2589,11 +2649,12 @@ function updateCheckoutTotals() {
         document.getElementById("customerName")
           .value
           .trim();
-
-      const table =
-        document.getElementById("tableNumber")
-          .value
-          .trim();
+      
+const table =
+  tableFromUrl ||
+  document.getElementById("tableNumber")
+    .value
+    .trim();
 
       const address =
         document.getElementById("deliveryAddress")
@@ -2838,6 +2899,26 @@ if (paymentMethod === "cliq") {
     }
 
     function applyLanguage() {
+      const tableBadge =
+  document.getElementById("tableBadge");
+
+if (tableBadge) {
+
+  if (tableFromUrl) {
+
+    tableBadge.style.display = "inline-flex";
+
+    tableBadge.textContent =
+      currentLanguage === "ar"
+        ? `🍽️ أنت على طاولة ${tableFromUrl}`
+        : `🍽️ Table ${tableFromUrl}`;
+
+  } else {
+
+    tableBadge.style.display = "none";
+
+  }
+}
 
       const isArabic =
         currentLanguage === "ar";
