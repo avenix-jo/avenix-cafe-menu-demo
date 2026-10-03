@@ -1333,7 +1333,78 @@
     </div>
 
   </div>
+<div style="
+  margin-top:14px;
+  padding:16px;
+  background:#fff;
+  border:1px solid #eadfd6;
+  border-radius:16px;
+">
 
+  <label style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:900;
+    margin-bottom:14px;
+  ">
+    <input
+      type="checkbox"
+      id="cliqPaidConfirm"
+      style="width:20px;height:20px;"
+    >
+    ✅ تم الدفع عبر CliQ
+  </label>
+
+  <div style="margin-bottom:12px;">
+    <label style="
+      display:block;
+      font-size:11px;
+      color:#806f64;
+      margin-bottom:6px;
+    ">
+      اسم المرسل
+    </label>
+
+    <input
+      id="cliqSenderName"
+      type="text"
+      placeholder="الاسم الذي تم التحويل منه"
+      style="
+        width:100%;
+        padding:13px;
+        border:1px solid #e2d6cc;
+        border-radius:13px;
+        outline:none;
+      "
+    >
+  </div>
+
+  <div>
+    <label style="
+      display:block;
+      font-size:11px;
+      color:#806f64;
+      margin-bottom:6px;
+    ">
+      رقم / مرجع العملية
+    </label>
+
+    <input
+      id="cliqReference"
+      type="text"
+      placeholder="اختياري"
+      style="
+        width:100%;
+        padding:13px;
+        border:1px solid #e2d6cc;
+        border-radius:13px;
+        outline:none;
+      "
+    >
+  </div>
+
+</div>
 </div>
     </div>
 
@@ -2533,7 +2604,15 @@ function updateCheckoutTotals() {
         document.getElementById("orderNotes")
           .value
           .trim();
+      
+const cliqPaid =
+  document.getElementById("cliqPaidConfirm")?.checked || false;
 
+const cliqSenderName =
+  document.getElementById("cliqSenderName")?.value.trim() || "";
+
+const cliqReference =
+  document.getElementById("cliqReference")?.value.trim() || "";
       if (!name) {
         showToast(t("fillName"));
         return;
@@ -2548,7 +2627,15 @@ function updateCheckoutTotals() {
         showToast(t("fillAddress"));
         return;
       }
+if (paymentMethod === "cliq" && !cliqPaid) {
+  showToast("أكد إنك دفعت عبر CliQ ✅");
+  return;
+}
 
+if (paymentMethod === "cliq" && !cliqSenderName) {
+  showToast("اكتب اسم المرسل في CliQ");
+  return;
+}
       const typeText = {
         dine:
           currentLanguage === "ar"
@@ -2630,7 +2717,33 @@ function updateCheckoutTotals() {
 
         message += `🛒 Order:\n`;
       }
+if (paymentMethod === "cliq") {
 
+  if (currentLanguage === "ar") {
+
+    message +=
+      `\n✅ حالة الدفع: العميل أكد التحويل عبر CliQ\n` +
+      `👤 اسم المرسل: ${cliqSenderName}\n` +
+      `📲 CliQ Alias: ${CLIQ_ALIAS}\n`;
+
+    if (cliqReference) {
+      message +=
+        `🔢 مرجع العملية: ${cliqReference}\n`;
+    }
+
+  } else {
+
+    message +=
+      `\n✅ Payment status: Customer confirmed CliQ transfer\n` +
+      `👤 Sender name: ${cliqSenderName}\n` +
+      `📲 CliQ Alias: ${CLIQ_ALIAS}\n`;
+
+    if (cliqReference) {
+      message +=
+        `🔢 Transaction reference: ${cliqReference}\n`;
+    }
+  }
+}
       cart.forEach((item, index) => {
 
         const product =
