@@ -2488,62 +2488,75 @@ const tableFromUrl = (() => {
     /* =========================
        CHECKOUT
        ========================= */
+function openCheckout() {
 
-    function openCheckout() {
+  if (!cart.length) return;
 
-      if (!cart.length) return;
+  closeAllSheets(false);
 
-      closeAllSheets(false);
+  updateCheckoutLabels();
+  updateCheckoutTotals();
 
-      updateCheckoutLabels();
-      updateCheckoutTotals();
-if (tableFromUrl) {
-
-  orderType = "dine";
-
-  selectOrderType("dine");
-
-  const tableInput =
-    document.getElementById("tableNumber");
-  
-if (tableInput) {
-  tableInput.value = tableFromUrl;
-  tableInput.readOnly = true;
-
-  tableInput.style.background = "#f3ebe5";
-  tableInput.style.fontWeight = "900";
-  tableInput.style.color = "#7b4f33";
-
-  const tableLabel =
-    document.getElementById("tableLabel");
-
-  if (tableLabel) {
-    tableLabel.textContent =
-      currentLanguage === "ar"
-        ? "🔒 رقم الطاولة — محدد تلقائيًا من QR"
-        : "🔒 Table Number — detected from QR";
-  }
-}
   const orderTypeButtons =
-  document.querySelectorAll(".order-type");
+    document.querySelectorAll(".order-type");
 
-orderTypeButtons.forEach(button => {
+  orderTypeButtons.forEach(button => {
+
+    if (tableFromUrl) {
+
+      button.style.display =
+        button.dataset.type === "dine"
+          ? "block"
+          : "none";
+
+    } else {
+
+      button.style.display = "block";
+    }
+  });
 
   if (tableFromUrl) {
 
-    button.style.display =
-      button.dataset.type === "dine"
-        ? "block"
-        : "none";
+    orderType = "dine";
+
+    selectOrderType("dine");
+
+    const tableInput =
+      document.getElementById("tableNumber");
+
+    if (tableInput) {
+
+      tableInput.value = tableFromUrl;
+      tableInput.readOnly = true;
+
+      tableInput.style.background = "#f3ebe5";
+      tableInput.style.fontWeight = "900";
+      tableInput.style.color = "#7b4f33";
+    }
+
+    const tableLabel =
+      document.getElementById("tableLabel");
+
+    if (tableLabel) {
+
+      tableLabel.textContent =
+        currentLanguage === "ar"
+          ? "🔒 رقم الطاولة — محدد تلقائيًا من QR"
+          : "🔒 Table Number — detected from QR";
+    }
 
   } else {
 
-    button.style.display = "block";
+    const tableInput =
+      document.getElementById("tableNumber");
 
-  }
-});    
-      showSheet("checkoutSheet");
+    if (tableInput) {
+      tableInput.readOnly = false;
     }
+  }
+
+  showSheet("checkoutSheet");
+}
 
     function selectOrderType(type) {
 
